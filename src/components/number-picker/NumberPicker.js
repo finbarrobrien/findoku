@@ -8,7 +8,7 @@ const s = {
     display: 'flex',
     flexFlow: 'column nowrap',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     alignContent: 'flex-start',
   }),
 };
@@ -30,11 +30,12 @@ export default class NumberPicker extends Component {
     const rows = [];
     for (let i = 1; i <= this.props.gridSize;){ // for each row
       const values = [];
-      for (let j = 0; j < this.props.rowSize; j += 1 ){ // 1, 2, 3
-        values.push( i + j)
+      for (let j = 0; j < this.props.rowSize && i <= this.props.gridSize ; j += 1 ){ // 1, 2, 3
+        values.push(i)
+        i += 1;
       }
       rows.push(<NumRow key={ `Row ${i + 1}`  } values={ values }/>);
-      i += this.props.rowSize;
+
     }
     return rows;
   }

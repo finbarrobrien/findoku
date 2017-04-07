@@ -3,7 +3,7 @@ import {css} from 'glamor';
 import Grid from './components/grid/Grid';
 import NumberPicker from './components/number-picker/NumberPicker';
 import BacktrackingSolver from './sudoku/solver/BacktrackingSolver';
-import { EmptyGrid, EmptyNotes, PrintGrid } from './sudoku/solver/commons/CommonFunctions';
+import { EmptyGrid, EmptyNotes } from './sudoku/solver/commons/CommonFunctions';
 
 const s = {
   app: css({
@@ -17,12 +17,12 @@ const s = {
 
 class App extends Component {
 
-  _newGrid () {
+  _newGrid() {
     const grid = BacktrackingSolver(EmptyGrid(9));
     return grid;
   }
 
-  _newNotes () {
+  _newNotes() {
     const notes = EmptyNotes(9);
     return notes;
   }
@@ -37,6 +37,6 @@ class App extends Component {
       </div>
     );
   }
-};
+}
 
 export default App;

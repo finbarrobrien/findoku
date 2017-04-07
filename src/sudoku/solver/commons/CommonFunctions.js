@@ -12,7 +12,7 @@ const IsNumInRow = (grid, row, num) => {
     return false;
   }
   return true;
-}
+};
 
 /**
  * Check if a number given is in the specified column
@@ -29,7 +29,7 @@ const IsNumInCol = (grid, col, num) => {
     }
   }
   return false;
-}
+};
 
 /**
  * Check if a number given is already in the box enclosing the specified cell
@@ -227,7 +227,7 @@ const EmptyGrid = (size) => {
     arr.push(arr2);
   }
   return arr;
-}
+};
 
 /**
  * Generate an empty notes grid of the given size (width)
@@ -240,7 +240,7 @@ const EmptyNotes = (size) => {
     const arr2 = [];
     for (let j = 0; j < size; j += 1) {
       const arr3 = [];
-      for (let k = 0; k < size; k += 1){
+      for (let k = 0; k < size; k += 1) {
         arr3.push[0];
       }
       arr2.push(arr3);
@@ -248,7 +248,7 @@ const EmptyNotes = (size) => {
     arr.push(arr2);
   }
   return arr;
-}
+};
 
 export { GetUnviableCandidates, IsSolved, PrintGrid, IsNumInBox, IsNumInCol,
   IsNumInRow, GetInitialCandidates, IsValidSolution, RandomiseArray, EmptyGrid, EmptyNotes };

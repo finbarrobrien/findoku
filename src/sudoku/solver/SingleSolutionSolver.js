@@ -22,7 +22,8 @@ const singleSolution = (grid) => {
         }
       }
     }
-    stillSolveable = addedNumber; // if a number is added this iteration, then the puzzle is still potentially solveable
+    // if a number is added this iteration, then the puzzle is still potentially solveable
+    stillSolveable = addedNumber;
   }
   if (IsSolved(grid)) {
     return true;
