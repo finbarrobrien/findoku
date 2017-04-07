@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {css} from 'glamor';
-import Cell from './cell';
-import Note from './note';
+import Cell from './Cell';
+import Note from './Note';
 
 const s = {
   row: css({
     display: 'flex',
     flexFlow: 'row nowrap',
-    border: '1px solid',
+    /*border: '1px solid',
     borderRadius: '2px',
-    borderColor: 'rgba(0, 0, 0, 0.5)'
+    borderColor: 'rgba(0, 0, 0, 0.5)'*/
   }),
 };
 
@@ -32,7 +32,6 @@ export default class Row extends Component {
   render() {
     const cells = [];
     for (let i = 0; i < this.props.size; i += 1) {
-      console.log('add cell');
       if (!this.props.values[i] && this.props.notes[i].length) {
         cells.push(<Note
           rowNum={ this.props.rowNum }

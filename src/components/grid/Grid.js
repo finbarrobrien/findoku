@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {css} from 'glamor';
-import Row from './row';
+import Row from './Row';
 
 const s = {
   grid: css({
