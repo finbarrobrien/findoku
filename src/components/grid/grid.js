@@ -1,28 +1,50 @@
-import React, { Component } from 'react';
-import { css } from 'glamor';
+import React, {Component} from 'react';
+import {css} from 'glamor';
+import Row from './row';
 
 const s = {
-    grid: css({
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'no-wrap',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        alignContent: 'flex-start',
-        /*border: '2px solid',
-        borderRadius: '1px',
-        borderColor: 'rgba(0, 0, 0, 0.5)',*/
-    }),
+  grid: css({
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    alignContent: 'flex-start',
+  }),
 };
 
-class Grid extends Component {
-    render() {
-        return (
-            <div className="Grid" { ...s.grid }>
-                { this.props.children }
-            </div>
-        );
-    }
-}
+export default class Grid extends Component {
 
-export default Grid;
+  static propTypes = {
+    size: React.PropTypes.number,
+    grid: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+    notes: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number))),
+  }
+  /*
+   defaultProps() {
+   size: 9
+   };*/
+
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    const rows = [];
+    for (let i = 0; i < this.props.size; i += 1) {
+      rows.push(<Row
+        size={ this.props.size }
+        rowNum={ i }
+        key={ i }
+        values={ this.props.grid[i] }
+        notes={ this.props.notes[i] }/>);
+    }
+    return (
+      <div className="Grid" { ...s.grid } >
+        { rows }
+      </div>
+    );
+  }
+
+}

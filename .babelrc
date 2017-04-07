@@ -1,5 +1,8 @@
 {
+  "plugins": [
+    ["babel-plugin-root-import"]
+  ],
   "presets": [
-    "latest", "react"
+    "latest", "react", "stage-0"
   ]
 }

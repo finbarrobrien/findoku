@@ -16,6 +16,8 @@
     "webpack-dev-server": "^2.4.2"
   },
   "devDependencies": {
+    "babel-plugin-root-import": "^5.1.0",
+    "babel-preset-stage-0": "^6.24.1",
     "react-scripts": "0.9.5"
   },
   "scripts": {
