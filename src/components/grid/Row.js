@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {css} from 'glamor';
-import Cell from './Cell';
+import CellSelect from '../containers/CellSelect';
 import Note from './Note';
 
 const s = {
@@ -39,7 +39,7 @@ export default class Row extends Component {
           key={ `Note ${this.props.rowNum}, ${i}` }
           notes={ this.props.notes[i] }/>);
       } else {
-        cells.push(<Cell
+        cells.push(<CellSelect
           rowNum={ this.props.rowNum }
           colNum={ i }
           key={ `Cell ${this.props.rowNum}, ${i}` }

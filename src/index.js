@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import App from './App';
 import sudokuApp from './reducers/reducer';
 
-let store = createStore(todoApp);
+let store = createStore(sudokuApp);
 
 ReactDOM.render(
   <Provider store={ store }>

@@ -6,7 +6,7 @@ const initialState = {
   notes: [[[]]], // store for notes
   selectedCell: { // currently selected cell
     row: null,
-    coll: null,
+    col: null,
   },
   addNumbers: false, // adding numbers mode
   addNotes: false, // adding notes mode
@@ -27,9 +27,9 @@ const sudokuCellClick = (state = initialState, action) => {
   }
 };
 
-const sudokuApp = combineReducers({
+/*const sudokuApp = combineReducers({
   sudokuCellClick,
   // todo include any other reducers here
-});
+});*/
 
-export default sudokuApp;
+export default sudokuCellClick;

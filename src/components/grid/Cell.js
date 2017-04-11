@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { PropTypes } from 'react';
 import {css} from 'glamor';
 
 const s = {
@@ -23,35 +23,22 @@ const s = {
   }),
 };
 
-export default class Cell extends Component {
+const Cell = ({ rowNum, colNum, value, highlight, onCellClick }) => {
+  return (
+    <div className="Cell" { ...s.cell }
+       { ...(highlight ? s.highlight : s.normal ) }
+       onClick={() => onCellClick()}>
+    { value }
+  </div>
+  );
+};
 
-  static propTypes = {
-    rowNum: React.PropTypes.number.isRequired,
-    colNum: React.PropTypes.number.isRequired,
-    value: React.PropTypes.number,
-  }
+Cell.propTypes = {
+  rowNum: PropTypes.number.isRequired,
+  colNum: PropTypes.number.isRequired,
+  value: PropTypes.number,
+  highlight: PropTypes.bool,
+  onCellClick: PropTypes.func.isRequired
+};
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      highlight: false,
-    };
-    this._onClick = this._onClick.bind(this);
-  }
-
-
-  _onClick() {
-    this.setState({ highlight: !this.state.highlight });
-  }
-
-
-  render() {
-    return (
-      <div className="Cell" { ...s.cell }
-           { ...(this.state.highlight ? s.highlight : s.normal ) }
-           onClick={ this._onClick }>
-        { this.props.value }
-      </div>
-    );
-  }
-}
+export default Cell;

@@ -2,24 +2,20 @@ import { connect } from 'react-redux';
 import { clickCell } from '../../actions/actions';
 import Cell from '../grid/Cell';
 
-const getSelectedCell = () => {
-
-}
-
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-
+    highlight: state.selectedCell.row === ownProps.rowNum && state.selectedCell.col === ownProps.colNum
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClick: (row, col) => {
-      dispatch(clickCell(row, col));
+    onCellClick: () => {
+      dispatch(clickCell(ownProps.rowNum, ownProps.colNum));
     },
   };
 };
 
-const CellSelect = connect()(Cell);
+const CellSelect = connect(mapStateToProps, mapDispatchToProps)(Cell);
 
 export default CellSelect;
