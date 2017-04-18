@@ -1,9 +1,10 @@
-import { CLICK_CELL } from '../actions/actions';
-import { combineReducers } from 'redux';
+import { CLICK_CELL, NEW_GRID } from '../actions/actions';
+import BacktrackingSolver from '../sudoku/solver/BacktrackingSolver';
+import { EmptyGrid, EmptyNotes } from '../sudoku/solver/commons/CommonFunctions';
 
 const initialState = {
-  grid: [[]], // store for grid
-  notes: [[[]]], // store for notes
+  grid: BacktrackingSolver(EmptyGrid(9)), // store for grid
+  notes: EmptyNotes(9), // store for notes
   selectedCell: { // currently selected cell
     row: null,
     col: null,
@@ -16,11 +17,16 @@ const initialState = {
 const sudokuCellClick = (state = initialState, action) => {
   switch (action.type) {
     case CLICK_CELL: // Handle a cell click to highlight a single cell
-      return Object.assign(...state, {
+      return Object.assign({}, { ...state,
         selectedCell: {
           row: action.row,
           col: action.col,
         }
+      });
+    case NEW_GRID:
+      return Object.assign({}, { ...state,
+        grid: action.grid,
+        notes: action.notes,
       });
     default:
       return state;

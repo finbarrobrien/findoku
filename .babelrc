@@ -1,6 +1,7 @@
 {
   "plugins": [
-    ["babel-plugin-root-import"]
+    ["babel-plugin-root-import",
+      "transform-object-assign"]
   ],
   "presets": [
     "latest", "react", "stage-0"

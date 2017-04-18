@@ -5,25 +5,22 @@
 const CLICK_CELL        = 'CLICK_CELL';
 const CLICK_ADD_NOTE    = 'CLICK_ADD_NOTE';
 const CLICK_ADD_NUMBER  = 'CLICK_ADD_NUMBER';
+const NEW_GRID          = 'NEW_GRID';
 
 /*
  * Action Creators
  */
-const addNumber = (number, row, col) => {
+const addNumber = (number) => {
   return {
     type: CLICK_ADD_NUMBER,
     number,
-    row,
-    col,
   };
 };
 
-const addNote = (number, row, col) => {
+const addNote = (number) => {
   return {
     type: CLICK_ADD_NOTE,
     number,
-    row,
-    col,
   };
 };
 
@@ -35,4 +32,12 @@ const clickCell = (row, col) => {
   };
 };
 
-export { CLICK_CELL, CLICK_ADD_NOTE, CLICK_ADD_NUMBER, addNote, addNumber, clickCell };
+const initialise = (grid, notes) => {
+  return {
+    type: NEW_GRID,
+    grid,
+    notes,
+  };
+};
+
+export { CLICK_CELL, CLICK_ADD_NOTE, CLICK_ADD_NUMBER, NEW_GRID, addNote, addNumber, clickCell, initialise };

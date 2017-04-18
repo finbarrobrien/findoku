@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {css} from 'glamor';
-import CellSelect from '../containers/CellSelect';
+import CellConnect from '../containers/CellConnect';
 import Note from './Note';
 
 const s = {
@@ -13,43 +13,36 @@ const s = {
   }),
 };
 
-export default class Row extends Component {
-
-  static propTypes = {
-    size: React.PropTypes.number,
-    rowNum: React.PropTypes.number,
-    values: React.PropTypes.arrayOf(React.PropTypes.number),
-    notes: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-  }
-
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-
-  render() {
-    const cells = [];
-    for (let i = 0; i < this.props.size; i += 1) {
-      if (!this.props.values[i] && this.props.notes[i].length) {
-        cells.push(<Note
-          rowNum={ this.props.rowNum }
-          colNum={ i }
-          key={ `Note ${this.props.rowNum}, ${i}` }
-          notes={ this.props.notes[i] }/>);
-      } else {
-        cells.push(<CellSelect
-          rowNum={ this.props.rowNum }
-          colNum={ i }
-          key={ `Cell ${this.props.rowNum}, ${i}` }
-          value={ this.props.values[i] }/>);
-      }
+const Row = ({ size, rowNum, values, notes }) => {
+  const cells = [];
+  for (let i = 0; i < size; i += 1) {
+    if (!values[i] && notes[i].length) {
+      cells.push(<Note
+        rowNum={ rowNum }
+        colNum={ i }
+        key={ `Note ${rowNum}, ${i}` }
+        notes={ notes[i] }/>);
+    } else {
+      cells.push(<CellConnect
+        rowNum={ rowNum }
+        colNum={ i }
+        key={ `Cell ${rowNum}, ${i}` }
+        value={ values[i] }/>);
     }
-    return (
-      <div className="Row" { ...s.row }>
-        { cells }
-      </div>
-    );
   }
+  return (
+    <div className="Row" { ...s.row }>
+      { cells }
+    </div>
+  );
 }
+
+
+Row.propTypes = {
+  size: React.PropTypes.number,
+  rowNum: React.PropTypes.number,
+  values: React.PropTypes.arrayOf(React.PropTypes.number),
+  notes: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+}
+
+export default Row;

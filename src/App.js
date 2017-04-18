@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {css} from 'glamor';
-import Grid from './components/grid/Grid';
+import store from './store/store';
 import NumberPicker from './components/number-picker/NumberPicker';
-import BacktrackingSolver from './sudoku/solver/BacktrackingSolver';
-import { EmptyGrid, EmptyNotes } from './sudoku/solver/commons/CommonFunctions';
+
+import { initialise } from './actions/actions';
+import GridConnect from './components/containers/GridConnect';
 
 const s = {
   app: css({
@@ -17,22 +18,14 @@ const s = {
 
 class App extends Component {
 
-  _newGrid() {
-    const grid = BacktrackingSolver(EmptyGrid(9));
-    return grid;
-  }
-
-  _newNotes() {
-    const notes = EmptyNotes(9);
-    return notes;
+  constructor(props){
+    super(props);
   }
 
   render() {
-    const grid = this._newGrid();
-    const notes = this._newNotes();
     return (
       <div className="App" { ...s.app }>
-        <Grid size={ 9 } grid={ grid } notes={ notes }/>
+        <GridConnect />
         <NumberPicker gridSize={ 9 } rowSize={ 3 }/>
       </div>
     );

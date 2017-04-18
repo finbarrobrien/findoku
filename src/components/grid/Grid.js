@@ -12,39 +12,26 @@ const s = {
   }),
 };
 
-export default class Grid extends Component {
-
-  static propTypes = {
-    size: React.PropTypes.number,
-    grid: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-    notes: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number))),
+const Grid = ({ grid, notes }) => {
+  const rows = [];
+  for (let i = 0; i < grid.length; i += 1) {
+    rows.push(<Row
+      size={ grid.length }
+      rowNum={ i }
+      key={ i }
+      values={ grid[i] }
+      notes={ notes[i] }/>);
   }
-  /*
-   defaultProps() {
-   size: 9
-   };*/
-
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const rows = [];
-    for (let i = 0; i < this.props.size; i += 1) {
-      rows.push(<Row
-        size={ this.props.size }
-        rowNum={ i }
-        key={ i }
-        values={ this.props.grid[i] }
-        notes={ this.props.notes[i] }/>);
-    }
-    return (
-      <div className="Grid" { ...s.grid } >
-        { rows }
-      </div>
-    );
-  }
-
+  return (
+    <div className="Grid" { ...s.grid } >
+      { rows }
+    </div>
+  );
 }
+
+Grid.propTypes = {
+  grid: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+  notes: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number))),
+}
+
+export default Grid;
