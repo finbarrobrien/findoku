@@ -1,4 +1,4 @@
-import { GetInitialCandidates, IsSolved, PrintGrid } from './commons/CommonFunctions';
+import { GetInitialCandidates, IsSolved, PrintGrid } from '../commons/CommonFunctions';
 
 /**
  * Solve a grid by checking any empty square, and seeing if a single number can be definitively placed there,

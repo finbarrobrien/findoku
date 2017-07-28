@@ -1,4 +1,4 @@
-import { GetInitialCandidates, IsValidSolution, RandomiseArray } from './commons/CommonFunctions';
+import { GetInitialCandidates, IsValidSolution, RandomiseArray } from '../commons/CommonFunctions';
 
 /**
  * For the given grid position, try to generate a valid grid.

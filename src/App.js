@@ -5,6 +5,8 @@ import NumberPicker from './components/number-picker/NumberPicker';
 
 import { initialise } from './actions/actions';
 import GridConnect from './components/containers/GridConnect';
+import LockedCandidatesSolver from './sudoku/solver/LockedCandidatesSolver';
+import { EmptyGrid } from './sudoku/commons/CommonFunctions';
 
 const s = {
   app: css({
@@ -23,10 +25,15 @@ class App extends Component {
   }
 
   render() {
+    LockedCandidatesSolver(EmptyGrid(9));
     return (
       <div className="App" { ...s.app }>
-        <GridConnect />
-        <NumberPicker gridSize={ 9 } rowSize={ 3 }/>
+        {
+         /*
+          <GridConnect />
+          <NumberPicker gridSize={ 9 } rowSize={ 3 }/>
+           */
+        }
       </div>
     );
   }

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * Check if a number given is in the specified row
  *
@@ -102,6 +104,15 @@ const GetInitialCandidates = (grid, row, col) => {
     }
   }
   return candidates;
+};
+
+const GetInitialCandidatesGrid = (grid) => {
+  const candidatesGrid = _.map(grid, (row, rIdx) => {
+    return _.map(row, (col, cIdx) => {
+      return GetInitialCandidates(grid, rIdx, cIdx )
+    });
+  });
+  console.log(candidatesGrid);
 };
 
 /**
@@ -251,4 +262,4 @@ const EmptyNotes = (size) => {
 };
 
 export { GetUnviableCandidates, IsSolved, PrintGrid, IsNumInBox, IsNumInCol,
-  IsNumInRow, GetInitialCandidates, IsValidSolution, RandomiseArray, EmptyGrid, EmptyNotes };
+  IsNumInRow, GetInitialCandidates, GetInitialCandidatesGrid, IsValidSolution, RandomiseArray, EmptyGrid, EmptyNotes };

@@ -1,6 +1,6 @@
 import { CLICK_CELL, NEW_GRID } from '../actions/actions';
 import BacktrackingSolver from '../sudoku/solver/BacktrackingSolver';
-import { EmptyGrid, EmptyNotes } from '../sudoku/solver/commons/CommonFunctions';
+import { EmptyGrid, EmptyNotes } from '../sudoku/commons/CommonFunctions';
 
 const initialState = {
   grid: BacktrackingSolver(EmptyGrid(9)), // store for grid
