@@ -8,6 +8,7 @@ const initialState = {
   selectedCell: { // currently selected cell
     row: null,
     col: null,
+    value: null,
   },
   addNumbers: false, // adding numbers mode
   addNotes: false, // adding notes mode
@@ -19,8 +20,9 @@ const sudokuCellClick = (state = initialState, action) => {
     case CLICK_CELL: // Handle a cell click to highlight a single cell
       return Object.assign({}, { ...state,
         selectedCell: {
-          row: action.row,
-          col: action.col,
+          row: action.selected.row,
+          col: action.selected.col,
+          value: action.selected.value,
         }
       });
     case NEW_GRID:

@@ -28,12 +28,8 @@ class App extends Component {
     LockedCandidatesSolver(EmptyGrid(9));
     return (
       <div className="App" { ...s.app }>
-        {
-         /*
-          <GridConnect />
-          <NumberPicker gridSize={ 9 } rowSize={ 3 }/>
-           */
-        }
+        <GridConnect />
+        <NumberPicker gridSize={ 9 } rowSize={ 3 }/>
       </div>
     );
   }

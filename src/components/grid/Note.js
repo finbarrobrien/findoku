@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {css} from 'glamor';
 
 const s = {
@@ -22,9 +23,9 @@ const s = {
 export default class Note extends Component {
 
   static propTypes = {
-    rowNum: React.PropTypes.number.isRequired,
-    colNum: React.PropTypes.number.isRequired,
-    notes: React.PropTypes.arrayOf(React.PropTypes.number),
+    rowNum: PropTypes.number.isRequired,
+    colNum: PropTypes.number.isRequired,
+    notes: PropTypes.arrayOf(PropTypes.number),
   }
 
 
@@ -48,7 +49,7 @@ export default class Note extends Component {
 
 
   render() {
-    const cellNotes = _noteValues();
+    const cellNotes = this._noteValues();
     return (
       <div className="Note" { ...s.cell }>
         { cellNotes }

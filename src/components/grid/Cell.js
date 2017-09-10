@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {css} from 'glamor';
 
 const s = {
@@ -11,23 +12,20 @@ const s = {
     textAlign: 'center',
     fontFamily: 'Verdana, Geneva, sans-serif',
   }),
-  highlight: css({
-    border: '1px solid',
-    borderRadius: '2px',
-    borderColor: 'rgba(255, 0, 0, 1.0)',
-  }),
-  normal: css({
-    border: '1px solid',
-    borderRadius: '2px',
-    borderColor: 'rgba(0, 0, 0, 1.0)',
-  }),
+  select: 'border border-dark bg-primary',
+  selectedValue: 'border border-dark bg-info',
+  highlight: 'border border-dark bg-secondary',
+  normal: 'border border-dark bg-light',
 };
 
-const Cell = ({ rowNum, colNum, value, highlight, onCellClick }) => {
+const Cell = ({ row, col, value, activeCell, onCellClick }) => {
+  const highlight = activeCell.row === row || activeCell.col === col;
+  const select = activeCell.row === row && activeCell.col === col;
+  const selectedValue = activeCell.value === value;
   return (
-    <div className="Cell" { ...s.cell }
-       { ...(highlight ? s.highlight : s.normal ) }
-       onClick={() => onCellClick()}>
+    <div className={ select ? s.select : (highlight ? s.highlight : ( selectedValue ? s.selectedValue : s.normal)) }
+         { ...s.cell }
+       onClick={() => onCellClick({ row, col, value })}>
     { value }
   </div>
   );

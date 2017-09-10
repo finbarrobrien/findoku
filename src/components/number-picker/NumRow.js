@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {css} from 'glamor';
 import NumCell from './NumCell';
 
@@ -16,7 +17,7 @@ const s = {
 export default class Row extends Component {
 
   static propTypes = {
-    values: React.PropTypes.arrayOf(React.PropTypes.number),
+    values: PropTypes.arrayOf(PropTypes.number),
   }
 
 

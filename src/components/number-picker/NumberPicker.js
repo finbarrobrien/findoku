@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {css} from 'glamor';
 import NumRow from './NumRow';
 
@@ -16,8 +17,8 @@ const s = {
 export default class NumberPicker extends Component {
 
   static propTypes = {
-    gridSize: React.PropTypes.number.isRequired,
-    rowSize: React.PropTypes.number.isRequired,
+    gridSize: PropTypes.number.isRequired,
+    rowSize: PropTypes.number.isRequired,
   }
 
   constructor(props) {

@@ -5,6 +5,7 @@ const mapStateToProps = (state) => {
   return {
     grid: state.grid,
     notes: state.notes,
+    selected: state.selectedCell,
   };
 };
 

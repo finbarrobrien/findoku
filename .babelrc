@@ -4,6 +4,6 @@
       "transform-object-assign"]
   ],
   "presets": [
-    "latest", "react", "stage-0"
+    "env", "react", "stage-0"
   ]
 }

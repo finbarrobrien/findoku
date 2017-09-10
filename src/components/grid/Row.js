@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {css} from 'glamor';
 import CellConnect from '../containers/CellConnect';
 import Note from './Note';
@@ -13,20 +14,20 @@ const s = {
   }),
 };
 
-const Row = ({ size, rowNum, values, notes }) => {
+const Row = ({ size, row, values, notes }) => {
   const cells = [];
   for (let i = 0; i < size; i += 1) {
     if (!values[i] && notes[i].length) {
       cells.push(<Note
-        rowNum={ rowNum }
-        colNum={ i }
-        key={ `Note ${rowNum}, ${i}` }
+        row={ row }
+        col={ i }
+        key={ `Note ${row}, ${i}` }
         notes={ notes[i] }/>);
     } else {
       cells.push(<CellConnect
-        rowNum={ rowNum }
-        colNum={ i }
-        key={ `Cell ${rowNum}, ${i}` }
+        row={ row }
+        col={ i }
+        key={ `Cell ${row}, ${i}` }
         value={ values[i] }/>);
     }
   }
@@ -39,10 +40,10 @@ const Row = ({ size, rowNum, values, notes }) => {
 
 
 Row.propTypes = {
-  size: React.PropTypes.number,
-  rowNum: React.PropTypes.number,
-  values: React.PropTypes.arrayOf(React.PropTypes.number),
-  notes: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+  size: PropTypes.number,
+  rowNum: PropTypes.number,
+  values: PropTypes.arrayOf(PropTypes.number),
+  notes: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
 }
 
 export default Row;

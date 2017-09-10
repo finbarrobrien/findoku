@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {css} from 'glamor';
 
 const s = {
@@ -26,7 +27,7 @@ const s = {
 export default class NumCell extends Component {
 
   static propTypes = {
-    value: React.PropTypes.number,
+    value: PropTypes.number,
   }
 
   constructor(props) {

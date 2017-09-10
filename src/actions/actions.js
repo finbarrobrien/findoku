@@ -24,11 +24,10 @@ const addNote = (number) => {
   };
 };
 
-const clickCell = (row, col) => {
+const clickCell = (selected) => {
   return {
     type: CLICK_CELL,
-    row,
-    col,
+    selected,
   };
 };
 

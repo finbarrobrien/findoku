@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {css} from 'glamor';
 import Row from './Row';
 
@@ -17,7 +18,7 @@ const Grid = ({ grid, notes }) => {
   for (let i = 0; i < grid.length; i += 1) {
     rows.push(<Row
       size={ grid.length }
-      rowNum={ i }
+      row={ i }
       key={ i }
       values={ grid[i] }
       notes={ notes[i] }/>);
@@ -30,8 +31,8 @@ const Grid = ({ grid, notes }) => {
 }
 
 Grid.propTypes = {
-  grid: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-  notes: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number))),
+  grid: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  notes: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))),
 }
 
 export default Grid;
