@@ -1,4 +1,4 @@
-import { CLICK_CELL, NEW_GRID } from '../actions/actions';
+import { CLICK_CELL, NEW_GRID, SET_CELL } from '../actions/actions';
 import BacktrackingSolver from '../sudoku/solver/BacktrackingSolver';
 import { EmptyGrid, EmptyNotes } from '../sudoku/commons/CommonFunctions';
 
@@ -16,15 +16,24 @@ const initialState = {
 
 // todo add more actions here, or add new reducer functions
 const sudokuCellClick = (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case CLICK_CELL: // Handle a cell click to highlight a single cell
-      return Object.assign({}, { ...state,
+      return { ...state,
         selectedCell: {
           row: action.selected.row,
           col: action.selected.col,
           value: action.selected.value,
         }
-      });
+      };
+    case SET_CELL:
+      const modGrid = state.grid.slice();
+      modGrid[action.selected.row][action.selected.col] = action.selected.value;
+      console.log(state);
+      console.log(modGrid);
+      return { ...state,
+        grid: modGrid,
+      };
     case NEW_GRID:
       return Object.assign({}, { ...state,
         grid: action.grid,

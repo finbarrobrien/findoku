@@ -229,13 +229,12 @@ const RandomiseArray = (nums) => {
  * @returns {Array}
  */
 const EmptyGrid = (size) => {
-  const arr = [];
+  let arr = [];
+  let a2 = [];
+  a2.length = size;
+  a2.fill(0, 0, size)
   for (let i = 0; i < size; i += 1) {
-    const arr2 = [];
-    for (let j = 0; j < size; j += 1) {
-      arr2.push(0);
-    }
-    arr.push(arr2);
+    arr[i] = a2.slice();
   }
   return arr;
 };
@@ -246,17 +245,15 @@ const EmptyGrid = (size) => {
  * @returns {Array}
  */
 const EmptyNotes = (size) => {
-  const arr = [];
+  let arr = [];
+  let a2 = [];
+  a2.length = size;
+  a2.fill(0, 0, size)
   for (let i = 0; i < size; i += 1) {
-    const arr2 = [];
+    arr[i] = [];
     for (let j = 0; j < size; j += 1) {
-      const arr3 = [];
-      for (let k = 0; k < size; k += 1) {
-        arr3.push[0];
-      }
-      arr2.push(arr3);
+      arr[i][j] = a2.slice();
     }
-    arr.push(arr2);
   }
   return arr;
 };

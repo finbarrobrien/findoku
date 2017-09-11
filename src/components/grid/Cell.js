@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Cell = ({ row, col, value, activeCell, onCellClick }) => {
+const Cell = ({ row, col, tabIdx, value, activeCell, onCellClick, onEnterNumber }) => {
   const highlight = activeCell.row === row || activeCell.col === col;
   const select = activeCell.row === row && activeCell.col === col;
   const selectedValue = activeCell.value === value;
@@ -22,19 +22,25 @@ const Cell = ({ row, col, value, activeCell, onCellClick }) => {
   };
   return (
     <div
-         style={ cellStyle }
-       onClick={() => onCellClick({ row, col, value })}>
+       style={ cellStyle }
+       tabIndex={ tabIdx }
+       onKeyUp={ (ev) => { if(/^[1-9]{1}$/.test(ev.key)) {
+         onEnterNumber({ row, col, value: Number.parseInt(ev.key) });
+       } } }
+       onClick={(ev) =>  { onCellClick({ row, col, value }); } }>
     { value }
   </div>
   );
 };
 
 Cell.propTypes = {
-  rowNum: PropTypes.number.isRequired,
-  colNum: PropTypes.number.isRequired,
+  row: PropTypes.number.isRequired,
+  col: PropTypes.number.isRequired,
+  col: PropTypes.number,
   value: PropTypes.number,
-  highlight: PropTypes.bool,
-  onCellClick: PropTypes.func.isRequired
+  activeCell: PropTypes.object,
+  onCellClick: PropTypes.func,
+  onEnterNumber: PropTypes.func
 };
 
 export default Cell;

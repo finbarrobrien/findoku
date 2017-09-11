@@ -27,6 +27,7 @@ const Row = ({ size, row, values, notes }) => {
       cells.push(<CellConnect
         row={ row }
         col={ i }
+        tabIdx={ i + (row * size)}
         key={ `Cell ${row}, ${i}` }
         value={ values[i] }/>);
     }
