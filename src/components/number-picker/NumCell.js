@@ -1,6 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'glamor';
+import { connect } from 'react-redux';
+import { setCell } from '../../actions/actions';
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onNumClick: (value) => {
+      console.log(value)
+      if (/^[1-9]{1}$/.test(value)) {
+        console.log('dispatch it');
+        dispatch(setCell(value));
+      }
+    },
+  };
+};
 
 const s = {
   NumCell: css({
@@ -24,7 +38,7 @@ const s = {
   }),
 };
 
-const NumCell = ({ value, onNumClick }) => {
+const _NumCell = ({ value, onNumClick }) => {
   return (
     <div tabIndex={ value } className="NumCell" { ...s.NumCell }
          { ...(s.normal) }
@@ -34,9 +48,11 @@ const NumCell = ({ value, onNumClick }) => {
   );
 }
 
-NumCell.propTypes = {
+_NumCell.propTypes = {
   value: PropTypes.number,
   onNumClick: PropTypes.func,
 };
+
+const NumCell = connect(null, mapDispatchToProps)(_NumCell);
 
 export default NumCell;

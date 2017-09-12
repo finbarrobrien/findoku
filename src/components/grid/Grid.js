@@ -1,7 +1,18 @@
-import React, {Component} from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {css} from 'glamor';
 import Row from './Row';
+
+
+
+const mapStateToProps = (state) => {
+  return {
+    grid: state.grid,
+    notes: state.notes,
+    selected: state.selectedCell,
+  };
+};
 
 const s = {
   grid: css({
@@ -13,7 +24,7 @@ const s = {
   }),
 };
 
-const Grid = ({ grid, notes }) => {
+const _Grid = ({ grid, notes }) => {
   const rows = [];
   for (let i = 0; i < grid.length; i += 1) {
     rows.push(<Row
@@ -30,9 +41,12 @@ const Grid = ({ grid, notes }) => {
   );
 }
 
-Grid.propTypes = {
+_Grid.propTypes = {
   grid: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
   notes: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))),
 }
 
+const Grid = connect(mapStateToProps)(_Grid);
+
 export default Grid;
+

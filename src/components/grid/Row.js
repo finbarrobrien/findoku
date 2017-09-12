@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'glamor';
-import CellConnect from '../containers/CellConnect';
+import Cell from './Cell';
 import Note from './Note';
 
 const s = {
@@ -24,7 +24,7 @@ const Row = ({ size, row, values, notes }) => {
         key={ `Note ${row}, ${i}` }
         notes={ notes[i] }/>);
     } else {
-      cells.push(<CellConnect
+      cells.push(<Cell
         row={ row }
         col={ i }
         tabIdx={ i + (row * size)}

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'glamor';
 
@@ -20,40 +20,18 @@ const s = {
   })
 };
 
-export default class Note extends Component {
+const Note = ({ row, col, notes }) => {
+  return (
+    <div className="Note" { ...s.cell }>
+      { notes.map((note) => <div { ...s.note } key={ `note-${note}` }>{ note }</div> ) }
+    </div>
+  );
+};
 
-  static propTypes = {
-    rowNum: PropTypes.number.isRequired,
-    colNum: PropTypes.number.isRequired,
-    notes: PropTypes.arrayOf(PropTypes.number),
-  }
+Note.propTypes = {
+  row: PropTypes.number.isRequired,
+  col: PropTypes.number.isRequired,
+  notes: PropTypes.arrayOf(PropTypes.number),
+};
 
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-
-  _noteValues() {
-    if (this.props.notes.length) {
-      const notes = [];
-      this.props.notes.forEach((v) => {
-        notes.push(<div
-          { ...s.note }
-          key={ v }>{ v }</div>);
-      });
-      return notes;
-    }
-  }
-
-
-  render() {
-    const cellNotes = this._noteValues();
-    return (
-      <div className="Note" { ...s.cell }>
-        { cellNotes }
-      </div>
-    );
-  }
-}
+export default Note;
