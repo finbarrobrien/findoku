@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'glamor';
 
@@ -24,31 +24,19 @@ const s = {
   }),
 };
 
-export default class NumCell extends Component {
-
-  static propTypes = {
-    value: PropTypes.number,
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this._onClick = this._onClick.bind(this);
-  }
-
-
-  _onClick() {
-    console.log(`Clicked number ${this.props.value}`);
-  }
-
-
-  render() {
-    return (
-      <div className="NumCell" { ...s.NumCell }
-           { ...(this.state.highlight ? s.highlight : s.normal ) }
-           onClick={ this._onClick }>
-        { this.props.value }
-      </div>
-    );
-  }
+const NumCell = ({ value, onNumClick }) => {
+  return (
+    <div tabIndex={ value } className="NumCell" { ...s.NumCell }
+         { ...(s.normal) }
+         onClick={ () => { onNumClick(value) } }>
+      { value }
+    </div>
+  );
 }
+
+NumCell.propTypes = {
+  value: PropTypes.number,
+  onNumClick: PropTypes.func,
+};
+
+export default NumCell;

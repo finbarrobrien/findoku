@@ -24,11 +24,11 @@ const clickCell = (selected) => {
   };
 };
 
-const setCell = (selected) => {
-  console.log(selected);
+const setCell = (value) => {
+  console.log(value);
   return {
     type: SET_CELL,
-    selected,
+    value,
   };
 };
 

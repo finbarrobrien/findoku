@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {css} from 'glamor';
-import NumCell from './NumCell';
+import NumCellConnect from '../containers/NumCellConnect';
 
 const s = {
   row: css({
@@ -30,8 +30,8 @@ export default class Row extends Component {
   render() {
     const cells = [];
     this.props.values.forEach((v) => {
-      cells.push(<NumCell
-        key={ `NumCell ${v}` }
+      cells.push(<NumCellConnect
+        key={ `NumCellConnect-${v}` }
         value={ v }/>);
     });
     return (

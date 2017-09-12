@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Cell = ({ row, col, tabIdx, value, activeCell, onCellClick, onEnterNumber }) => {
+const Cell = ({ row, col, tabIdx, value, activeCell, onCellClick }) => {
   const highlight = activeCell.row === row || activeCell.col === col;
   const select = activeCell.row === row && activeCell.col === col;
-  const selectedValue = activeCell.value === value;
+  const selectedValue = activeCell.row === row && activeCell.col === col;
 
   const cellStyle = {
     flex: '0 0 auto',
@@ -24,10 +24,7 @@ const Cell = ({ row, col, tabIdx, value, activeCell, onCellClick, onEnterNumber 
     <div
        style={ cellStyle }
        tabIndex={ tabIdx }
-       onKeyUp={ (ev) => { if(/^[1-9]{1}$/.test(ev.key)) {
-         onEnterNumber({ row, col, value: Number.parseInt(ev.key) });
-       } } }
-       onClick={(ev) =>  { onCellClick({ row, col, value }); } }>
+       onClick={(ev) =>  { onCellClick({ row, col }); } }>
     { value }
   </div>
   );

@@ -13,13 +13,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onCellClick: (selected) => {
       dispatch(clickCell(selected));
     },
-    onEnterNumber: (selected) => {
+    /*onEnterNumber: (selected) => {
       console.log(selected)
       if (/^[1-9]{1}$/.test(selected.value)) {
         console.log('dispatch it');
         dispatch(setCell(selected));
       }
-    },
+    },*/
   };
 };
 

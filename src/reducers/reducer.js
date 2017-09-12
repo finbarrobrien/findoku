@@ -8,7 +8,6 @@ const initialState = {
   selectedCell: { // currently selected cell
     row: null,
     col: null,
-    value: null,
   },
   addNumbers: false, // adding numbers mode
   addNotes: false, // adding notes mode
@@ -23,12 +22,11 @@ const sudokuCellClick = (state = initialState, action) => {
         selectedCell: {
           row: action.selected.row,
           col: action.selected.col,
-          value: action.selected.value,
         }
       };
     case SET_CELL:
       const modGrid = state.grid.slice();
-      modGrid[action.selected.row][action.selected.col] = action.selected.value;
+      modGrid[state.selectedCell.row][state.selectedCell.col] = action.value;
       console.log(state);
       console.log(modGrid);
       return { ...state,
