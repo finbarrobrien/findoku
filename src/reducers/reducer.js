@@ -1,10 +1,11 @@
-import { CLICK_CELL, NEW_GRID, SET_CELL } from '../actions/actions';
+import { CLICK_CELL, NEW_GRID, SET_CELL, SWITCH_MODE } from '../actions/actions';
 import BacktrackingSolver from '../sudoku/solver/BacktrackingSolver';
 import { EmptyGrid, EmptyNotes } from '../sudoku/commons/CommonFunctions';
 
 const initialState = {
   grid: BacktrackingSolver(EmptyGrid(9)), // store for grid
   notes: EmptyNotes(9), // store for notes
+  makeNotes: false,
   selectedCell: { // currently selected cell
     row: null,
     col: null,
@@ -25,12 +26,20 @@ const sudokuCellClick = (state = initialState, action) => {
         }
       };
     case SET_CELL:
+      if (state.selectedCell.row === null || state.selectedCell.col === null) {
+        return state;
+      }
       const modGrid = state.grid.slice();
       modGrid[state.selectedCell.row][state.selectedCell.col] = action.value;
       console.log(state);
       console.log(modGrid);
       return { ...state,
         grid: modGrid,
+      };
+    case SWITCH_MODE:
+      return {
+        ...state,
+        makeNotes: !state.makeNotes,
       };
     case NEW_GRID:
       return Object.assign({}, { ...state,
@@ -42,9 +51,5 @@ const sudokuCellClick = (state = initialState, action) => {
   }
 };
 
-/*const sudokuApp = combineReducers({
-  sudokuCellClick,
-  // todo include any other reducers here
-});*/
 
 export default sudokuCellClick;

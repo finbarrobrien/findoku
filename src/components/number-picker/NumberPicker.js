@@ -1,59 +1,87 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {css} from 'glamor';
-import NumRow from './NumRow';
+import { connect } from 'react-redux';
+import { setCell, switchMode } from '../../actions/actions';
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onNumClick: (value) => {
+      console.log(value)
+      if (/^[1-9]{1}$/.test(value)) {
+        console.log('dispatch it');
+        dispatch(setCell(value));
+      }
+    },
+    onClickNote: () => {
+      console.log('note clicked');
+      dispatch(switchMode())
+    }
+  };
+};
+
 
 const s = {
   numPicker: css({
     margin: '70px',
+    width: 'auto',
+    height: 'auto',
     display: 'flex',
-    flexFlow: 'column nowrap',
-    justifyContent: 'flex-start',
     alignItems: 'center',
-    alignContent: 'flex-start',
+    flexFlow: 'row wrap',
+    justifyContent: 'center',
+    maxWidth: '227px',
+    border: '1px solid',
+    borderColor: 'rgba(0, 0, 0, 0.5)'
+  }),
+  button: css({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    width: '45px',
+    height: '45px',
+    fontSize: '24px',
+    lineHeight: '45px',
+    border: '1px solid',
+    borderColor: 'rgba(0, 0, 0, 0.5)'
   }),
 };
 
-export default class NumberPicker extends Component {
+const getNumpickerItems = ({ onNumClick, onClickNote }) => {
+  const pickerButtons = [];
 
-  static propTypes = {
-    gridSize: PropTypes.number.isRequired,
-    rowSize: PropTypes.number.isRequired,
+  for (let i = 1; i <= 9; i += 1) { // for each row
+    pickerButtons.push(
+      <div
+        tabIndex={ i }
+        { ...s.button }
+        onClick={ () => { onNumClick(i) } }>
+        { i }
+      </div>)
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  pickerButtons.push(
+    <div
+      { ...s.button }
+      onClick={ onClickNote }>
+      <img src="assets/svg/ic_edit_black_24px.svg" width="24" height="24"/>
+    </div>
+  );
 
+  return pickerButtons;
+};
 
-  _getRows() {
-    const rows = [];
-    for (let i = 1; i <= this.props.gridSize;){ // for each row
-      const values = [];
-      for (let j = 0; j < this.props.rowSize && i <= this.props.gridSize ; j += 1 ){ // 1, 2, 3
-        values.push(i)
-        i += 1;
-      }
-      rows.push(<NumRow key={ `Row ${i + 1}`  } values={ values }/>);
+const _NumberPicker = ({ onNumClick, onClickNote }) => {
+  const items = getNumpickerItems({ onNumClick, onClickNote });
 
-    }
-    return rows;
-  }
-
-
-  _mouseOver(){
-    // Change the cursor
-  }
-
-  render() {
-    const rows = this._getRows();
-
-    return (
-      <div className="NumPicker" { ...s.numPicker } onMouseOver={ this._mouseOver }>
-        { rows }
-      </div>
-    );
-  }
-
+  return (
+    <div { ...s.numPicker }>
+      { items }
+    </div>
+  );
 }
+
+
+const NumberPicker = connect(null, mapDispatchToProps)(_NumberPicker);
+
+export default NumberPicker;

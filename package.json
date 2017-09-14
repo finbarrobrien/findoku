@@ -17,6 +17,7 @@
     "react-router": ">=4.2.0",
     "react-router-dom": ">=4.2.2",
     "redux": ">=3.6.0",
+    "redux-devtools-extension": "^2.13.2",
     "webpack-dev-server": ">=2.4.2"
   },
   "devDependencies": {
@@ -29,6 +30,7 @@
     "eslint-plugin-import": ">=2.2.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.3.0",
+    "file-loader": "^0.11.2",
     "prop-types": "^15.5.10",
     "react-scripts": "^1.0.13",
     "redux-devtools": ">=3.3.2",
@@ -39,6 +41,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "wpd": "webpack-dev-server"
+    "wpd": "webpack-dev-server",
+    "webpack": "webpack --config webpack.config.js"
   }
 }

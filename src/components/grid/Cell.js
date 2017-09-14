@@ -5,6 +5,7 @@ import { clickCell } from '../../actions/actions';
 
 const mapStateToProps = (state) => {
   return {
+    grid: state.grid,
     activeCell: state.selectedCell,
   };
 };
@@ -24,10 +25,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-const _Cell = ({ row, col, tabIdx, value, activeCell, onCellClick }) => {
+const _Cell = ({ row, col, tabIdx, value, activeCell, grid, onCellClick }) => {
   const highlight = activeCell.row === row || activeCell.col === col;
   const select = activeCell.row === row && activeCell.col === col;
-  const selectedValue = activeCell.row === row && activeCell.col === col;
+  const selectedValue = activeCell.row !== null && activeCell.col !== null ? grid[activeCell.row][activeCell.col] === value: false;
 
   const cellStyle = {
     flex: '0 0 auto',

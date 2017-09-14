@@ -6,6 +6,7 @@ const CLICK_CELL        = 'CLICK_CELL';
 const CLICK_ADD_NOTE    = 'CLICK_ADD_NOTE';
 const SET_CELL          = 'SET_CELL';
 const NEW_GRID          = 'NEW_GRID';
+const SWITCH_MODE       = 'SWITCH_MODE';
 
 /*
  * Action Creators
@@ -25,7 +26,6 @@ const clickCell = (selected) => {
 };
 
 const setCell = (value) => {
-  console.log(value);
   return {
     type: SET_CELL,
     value,
@@ -40,4 +40,10 @@ const initialise = (grid, notes) => {
   };
 };
 
-export { CLICK_CELL, CLICK_ADD_NOTE, SET_CELL, NEW_GRID, addNote, clickCell, setCell, initialise };
+const switchMode = () => {
+  return {
+    type: SWITCH_MODE,
+  };
+};
+
+export { SWITCH_MODE, CLICK_CELL, CLICK_ADD_NOTE, SET_CELL, NEW_GRID, switchMode, addNote, clickCell, setCell, initialise };
