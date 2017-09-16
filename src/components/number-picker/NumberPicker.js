@@ -52,7 +52,7 @@ const getNumpickerItems = ({ onNumClick, onClickNote }) => {
 
   for (let i = 1; i <= 9; i += 1) { // for each row
     pickerButtons.push(
-      <div
+      <div key={ i }
         tabIndex={ i }
         { ...s.button }
         onClick={ () => { onNumClick(i) } }>

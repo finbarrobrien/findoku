@@ -108,7 +108,7 @@ const GetInitialCandidates = (grid, row, col) => {
 
 const GetInitialCandidatesGrid = (grid) => {
   const candidatesGrid = _.map(grid, (row, rIdx) => {
-    return _.map(row, (col, cIdx) => {
+    return row.map((col, cIdx) => {
       return GetInitialCandidates(grid, rIdx, cIdx )
     });
   });
@@ -258,5 +258,65 @@ const EmptyNotes = (size) => {
   return arr;
 };
 
-export { GetUnviableCandidates, IsSolved, PrintGrid, IsNumInBox, IsNumInCol,
-  IsNumInRow, GetInitialCandidates, GetInitialCandidatesGrid, IsValidSolution, RandomiseArray, EmptyGrid, EmptyNotes };
+/**
+ * Rotates a grid through 90 degrees clockwise.
+ * Cols become rows, ordered from bottom of the original
+ * col to top becoming left to right in a row.
+ *
+ * Useful for determining locked candidates by row seeking,
+ * and for generating new puzzles from an existing grid through
+ * rotation.
+ *
+ * @param grid
+ * @returns {Array}
+ */
+const RotateGridClockwise = (grid) => {
+  const rotated = [];
+  for (let c = 0; c < grid.length ; c += 1) {
+    const colToRow = [];
+    for (let r = grid.length - 1 ; r >=0; r -=1 ) {
+      colToRow.push(grid[r][c]);
+    }
+    rotated.push(colToRow);
+  }
+  return rotated;
+}
+
+
+/*
+ *
+ * Checks if a cell has a fully locked value due to the value already being present
+ * in nearby rows and columns on other blocks which would force this to be a locked
+ * value
+ *
+ * @param grid
+ * @param row
+ * @param col
+ * @return boolean
+ */
+const LockedBySiblings = (grid, row, col, value) => {
+  const rotated = RotateGridClockwise(grid);
+  const siblingRows = [0, 1, 2].filter((r) => { return r !== row % 3 });
+  const siblingCols = [0, 1, 2].filter((c) => { return c !== col % 3 });
+  return IsNumInRow(grid, (row - row % 3) + siblingRows[0], value ) &&
+    IsNumInRow(grid, (row - row % 3) + siblingRows[1], value ) &&
+    IsNumInRow(rotated, (col - col % 3) + siblingCols[0], value ) &&
+    IsNumInRow(rotated, (col - col % 3) + siblingCols[0], value )
+};
+
+export {
+  GetUnviableCandidates,
+  IsSolved,
+  PrintGrid,
+  IsNumInBox,
+  IsNumInCol,
+  IsNumInRow,
+  GetInitialCandidates,
+  GetInitialCandidatesGrid,
+  IsValidSolution,
+  RandomiseArray,
+  EmptyGrid,
+  EmptyNotes,
+  RotateGridClockwise,
+  LockedBySiblings
+};

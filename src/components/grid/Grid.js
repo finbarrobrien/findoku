@@ -25,6 +25,7 @@ const s = {
 };
 
 const _Grid = ({ grid, notes }) => {
+  console.log(grid);
   const rows = [];
   for (let i = 0; i < grid.length; i += 1) {
     rows.push(<Row
