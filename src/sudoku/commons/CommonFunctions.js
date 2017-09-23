@@ -1,5 +1,4 @@
-import _ from 'lodash';
-
+import pull from 'lodash/pull';
 /**
  * Check if a number given is in the specified row
  *
@@ -93,27 +92,78 @@ const GetUnviableCandidates = (grid, row, col) => {
  * @returns {Array}
  * @constructor
  */
-const GetInitialCandidates = (grid, row, col) => {
+const GetCandidates = (grid, row, col) => {
   const candidates = [];
-  if (grid[row][col] !== 0) {
-    return candidates;
-  }
-  for (let i = 1; i <= grid.length; i += 1) {
-    if (!IsNumInRow(grid, row, i) && !IsNumInCol(grid, col, i) && !IsNumInBox(grid, row, col, i)) {
-      candidates.push(i);
+  if (!grid[row][col]) {
+    for (let i = 1; i <= grid.length; i += 1) {
+      if (!IsNumInRow(grid, row, i) && !IsNumInCol(grid, col, i) && !IsNumInBox(grid, row, col, i)) {
+        candidates.push(i);
+      }
     }
   }
-  return candidates;
+  return candidates.length ? candidates : grid[row][col];
 };
 
-const GetInitialCandidatesGrid = (grid) => {
-  const candidatesGrid = _.map(grid, (row, rIdx) => {
-    return row.map((col, cIdx) => {
-      return GetInitialCandidates(grid, rIdx, cIdx )
+const FillGridCandidates = (grid) => {
+  grid.forEach((row, rIdx) => {
+    row.forEach((col, cIdx) => {
+      grid[rIdx][cIdx]= GetCandidates(grid, rIdx, cIdx );
     });
   });
-  console.log(candidatesGrid);
+  console.log(grid);
 };
+
+
+
+const EliminateFromCandidates = (grid, row, col) => {
+  // do the row
+  grid[row].forEach((c, cIdx) => {
+    if (cIdx !== col && typeof grid[row][cIdx] === 'object') {
+      pull(grid[row][cIdx], grid[row][col]);
+      if(grid[row][cIdx].length === 1) {
+        grid[row][cIdx] = grid[row][cIdx][0];
+        EliminateFromCandidates(grid, row, cIdx);
+      }
+    }
+  });
+  // do the col
+  for (let j = 0; j < grid.length; j += 1) {
+    if (j !== row) {
+      if (typeof grid[j][col] === 'object') {
+        pull(grid[j][col], grid[row][col]);
+        if(grid[j][col].length === 1) {
+          grid[j][col] = grid[j][col][0];
+          EliminateFromCandidates(grid, j, col);
+        }
+      }
+    }
+  }
+  // Do the box
+  const boxLen = Math.sqrt(grid.length);
+  const rowr = row - (row % boxLen);
+  const colr = col - (col % boxLen);
+  for (let e = 0, d = 0; e < boxLen && d < boxLen;) {
+    const r = rowr + e;
+    const c = colr + d;
+    if (r !== row && c !== col) {
+      if (typeof grid[r][c] === 'object'){
+        pull(grid[r][c],grid[row][col]);
+        if(grid[r][c].length === 1) {
+          grid[r][c] = grid[r][c][0];
+          EliminateFromCandidates(grid, r, c);
+        }
+      }
+    }
+    if (e === (boxLen - 1) && d < boxLen - 1) {
+      e = 0;
+      d += 1;
+    } else {
+      e += 1;
+    }
+  }
+};
+
+
 
 /**
  * Check if grid has any empty cells
@@ -306,17 +356,18 @@ const LockedBySiblings = (grid, row, col, value) => {
 
 export {
   GetUnviableCandidates,
+  EliminateFromCandidates,
   IsSolved,
   PrintGrid,
   IsNumInBox,
   IsNumInCol,
   IsNumInRow,
-  GetInitialCandidates,
-  GetInitialCandidatesGrid,
+  GetCandidates,
+  FillGridCandidates,
   IsValidSolution,
   RandomiseArray,
   EmptyGrid,
   EmptyNotes,
   RotateGridClockwise,
-  LockedBySiblings
+  LockedBySiblings,
 };

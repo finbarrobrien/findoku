@@ -1,40 +1,20 @@
-import pullAll from 'lodash/pullAll';
-import { EliminateFromCandidates, LockedBySiblings, FillGridCandidates, IsValidSolution } from '../commons/CommonFunctions';
-
-
-const lockValues = (grid) => {
-  let lockedCount = 0;
-  for (let r = 0, c = 0; r < grid.length && c < grid.length;) { // scan the entire grid.
-    const nextC = (c + 1) % grid.length;
-    const nextR = (nextC === 0) ? r + 1 : r;
-    if (typeof grid[r][c] === 'object') {
-      if (grid[r][c].length) {
-        if (grid[r][c].length === 1) {
-          grid[r][c] = grid[r][c][0];
-          lockedCount += 1;
-          EliminateFromCandidates(grid, r, c);
-        } else {
-          for (let v = 0; v < grid[r][c].length; v += 1) {
-            if (LockedBySiblings(grid, r, c, grid[r][c][v])) {
-              grid[r][c] = grid[r][c][v];
-              lockedCount += 1;
-              EliminateFromCandidates(grid, r, c);
-              break; // break to next row, col.
-            }
-          }
-        }
-      }
-    }
-    r = nextR; c = nextC;
-  }
-  // if we locked values in this pass, we should try again.
-  // the grid may be solved by now but we recurse and try again
-  if(lockedCount != 0){
-    lockValues(grid)
-  }
-  // Recursion will have finished (the grid may or may not be solved)
-  return grid; // return the grid once we can't lock any more values
-};
+/**
+ * Hidden locked candidates takes a grid with candidates already set
+ * For each row, it determines candidates in the block of the current
+ * row, and non-candidates in each sibling row of the same block.
+ *
+ * Non candidates are removed from the row candidates. Any candidates remaining
+ * can only be in this row, of this block, so we remove the candidates from this
+ * row of sibling blocks.
+ *
+ * This recursively calls itself if any candidates are removed in a single pass
+ * as there could potentially be more candidates for removal. Also, if a cell in
+ * a sibling block is found to have only a single remaining candidate, then the
+ * value is set in the cell, and the rule to eliminate this value from candidates
+ * in the aligning row, column and current block is invoked.
+ *
+ * @param grid
+ */
 
 const hiddenLockedCandidates = (grid) => {
   let lockedCount = 0;
@@ -83,6 +63,8 @@ const hiddenLockedCandidates = (grid) => {
               console.log(grid[row][s]);
               if(grid[row][s].length === 1) {
                 grid[row][s] = grid[row][s][0];
+                // Value is set so we must ensure it's removed from candidates of the same row, col
+                // and current block.
                 EliminateFromCandidates(grid, row, s);
               }
             }
@@ -96,16 +78,3 @@ const hiddenLockedCandidates = (grid) => {
     hiddenLockedCandidates(grid)
   }
 }
-
-const LockedValuesSolver = (grid) => {
-  if (grid) {
-    FillGridCandidates(grid);
-    hiddenLockedCandidates(grid)
-    console.log(grid);
-    console.log(IsValidSolution(grid));
-  }
-  return null;
-};
-
-export default LockedValuesSolver;
-export { lockValues };

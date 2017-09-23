@@ -1,12 +1,9 @@
-import { GetInitialCandidates, IsValidSolution, RandomiseArray } from '../commons/CommonFunctions';
+import { GetCandidates, IsValidSolution, RandomiseArray } from '../commons/CommonFunctions';
 
 /**
- * For the given grid position, try to generate a valid grid.
- * This will get the complete list of possible numbers for the
- * next empty (0) position. For each possible number, set the number
- * in this current position, check if the number was placed in the
- * very last grid position, if so, we are finished, otherwise, recurse
- * into this function again for the next grid position.
+ * Brute force attempt to place a number, recurse and continue until
+ * the grid is either solved, or we cannot recurse any more and solvin
+ * is failed.
  *
  * @param grid
  * @param row
@@ -15,8 +12,8 @@ import { GetInitialCandidates, IsValidSolution, RandomiseArray } from '../common
  */
 const backtrack = (grid, row, col) => {
   for (let r = row, c = col; r < grid.length && c < grid.length;) {
-    if (grid[r][c] === 0) { // only try to solve a number if it is not already set
-      const nums = RandomiseArray(GetInitialCandidates(grid, r, c));
+    if (!grid[r][c]) { // only try to solve a number if it is not already set
+      const nums = RandomiseArray(GetCandidates(grid, r, c));
       if (!nums.length) {
         return false;
       }
