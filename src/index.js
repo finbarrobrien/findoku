@@ -9,8 +9,8 @@ import sudokuApp from './reducers/reducer';
 let store = createStore(sudokuApp, devToolsEnhancer());
 
 ReactDOM.render(
-  <Provider store={ store }>
-    <App />
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={ store }>
+        <App />
+    </Provider>,
+    document.getElementById('root')
 );
